@@ -3,19 +3,19 @@ import pytest
 from dga_detector.api import app
 
 
-@pytest.yield_fixture
+@pytest.fixture
 def client():
     with app.test_client() as client:
         yield client
 
 
-def test_classify_valid_url(client):
+def test_classify_response_schema(client):
     result = client.get("/get_prediction/google.com")
     assert result.status_code == 200
 
     # TODO: get data from schema, test the schema
-    keys = result.json.keys()
-    for key in ["classification", "domain", "p_dga", "p_legit"]:
+    keys = result.json["google.com"].keys()
+    for key in ["classification", "p_dga", "p_legit"]:
         assert key in keys
 
 
@@ -35,7 +35,7 @@ def test_batch_classify_sanity_check(url_string, expected_class, client):
     data = {"url_string": url_string}
     result = client.post("/get_predictions", json=data)
     assert result.status_code == 200
-    assert all([res["classification"] == expected_class for res in result.json])
+    assert all([result.json[key]["classification"] == expected_class for key in result.json.keys()])
     assert len(result.json) == 3
 
 

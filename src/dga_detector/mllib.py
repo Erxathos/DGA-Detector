@@ -51,13 +51,10 @@ class DgaDetector:
 
         return torch.cat(batched_embeddings, dim=0).detach().numpy()
 
-    def prepare_result(
-        self, url: str, probs: np.ndarray[float]
-    ) -> Dict[str, Union[str, float]]:
+    def prepare_result(self, probs: np.ndarray[float]) -> Dict[str, Union[str, float]]:
         # this won't work if we change class labels
         label = "dga" if probs[0] < probs[1] else "legit"
         return {
-            "domain": url,
             "p_legit": probs[0],
             "p_dga": probs[1],
             "classification": label,
@@ -66,11 +63,11 @@ class DgaDetector:
     def predict(self, domain: str) -> Dict[str, Union[str, float]]:
         embeddings = self.get_embedings("http://" + domain)
         probs = self.classifier.predict_proba(embeddings)[0]
-        return self.prepare_result(domain, probs)
+        return {domain: self.prepare_result(probs)}
 
     def predict_many(self, domain_list: List[str]) -> List[Dict]:
         http_urls_gen = ["http://" + url for url in domain_list]
         embeddings = self.get_batch_embeddings(http_urls_gen)
         probs = self.classifier.predict_proba(embeddings)
-        results = [self.prepare_result(url, p) for url, p in zip(domain_list, probs)]
+        results = {url: self.prepare_result(p) for url, p in zip(domain_list, probs)}
         return results
