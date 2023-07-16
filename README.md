@@ -27,22 +27,24 @@ Example response:
 
 Clone the repository
 
-`git clone https://github.com/Erxathos/DGA-Detector.git`
+    git clone https://github.com/Erxathos/DGA-Detector.git
 
 Install poetry
 
-`pip3 install poetry`
+    pip3 install poetry
 
 Install dependencies
 
-`poetry install`
+    poetry install
 
 Start the server inside the poetry environment with gunicorn or flask
 
-`poetry run flask --app src/dga_detector/api.py run`
+    poetry run flask --app src/dga_detector/api.py run
 
 
-## Try it 
+## Try it
+
+Run the server and send requests
 
     curl http://localhost:5000/get_prediction/google.com
 
