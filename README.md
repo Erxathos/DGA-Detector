@@ -37,6 +37,8 @@ Install dependencies
 
     poetry install
 
+## Try it
+
 Start the server inside the poetry environment with gunicorn or flask
 
     poetry run flask --app src/dga_detector/api.py run
@@ -44,9 +46,7 @@ Start the server inside the poetry environment with gunicorn or flask
 The initial run may require some time as it downloads the ALBERT model in the background.
 
 
-## Try it
-
-Run the server and send requests
+Send requests
 
     curl http://localhost:5000/get_prediction/google.com
 
