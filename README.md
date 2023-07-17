@@ -41,7 +41,7 @@ Install dependencies
 
 Start the server inside the poetry environment with gunicorn or flask
 
-    poetry run flask --app src/dga_detector/api.py run
+    poetry run flask --app dga_detector.api run
 
 The initial run may require some time as it downloads the ALBERT model in the background.
 
