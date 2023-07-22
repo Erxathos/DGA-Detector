@@ -13,6 +13,8 @@ If a domain name is invalid, an HTTP status code of 422 is returned.
 
 In both cases, a JSON object will be returned as the response. The key is the domain name, and the value is the relevant classification results.
 
+![DGA detection using HTTP GET](./img/api_info.drawio.png)
+
 Example response:
 
     {
